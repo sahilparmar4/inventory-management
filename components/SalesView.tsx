@@ -113,18 +113,18 @@ export default function SalesView() {
       align: 'right',
       cellClassName: 'space-x-2',
       render: (order) => (
-        <>
+        <div className="inline-flex items-center justify-end gap-1.5">
           <button
             onClick={() => setSelectedOrder(order)}
-            className="inline-flex items-center cursor-pointer gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-slate-600 hover:bg-slate-100"
+            className="inline-flex items-center cursor-pointer gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:bg-slate-100 whitespace-nowrap"
           >
-            <FileText className="h-3.5 w-3.5" />
+            <FileText className="h-4 w-4 shrink-0" />
             Invoice
           </button>
           {order.status === 'Pending' && (
             <button
               onClick={() => updateSaleStatus(order.id, 'Paid')}
-              className="px-2.5 py-1 cursor-pointer rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+              className="px-3 py-1.5 cursor-pointer rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 hover:bg-emerald-100 whitespace-nowrap"
             >
               Mark Paid
             </button>
@@ -132,19 +132,19 @@ export default function SalesView() {
           {order.status !== 'Cancelled' && (
             <button
               onClick={() => setOrderToCancel(order)}
-              className="px-2.5 py-1 cursor-pointer rounded-md text-xs font-medium text-rose-600 hover:bg-rose-50"
+              className="px-3 py-1.5 cursor-pointer rounded-md text-xs font-medium text-rose-600 hover:bg-rose-50 whitespace-nowrap"
             >
               Cancel
             </button>
           )}
-        </>
+        </div>
       ),
     },
   ];
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         <SearchFilterBar
           search={search}
           onSearchChange={setSearch}
@@ -158,9 +158,9 @@ export default function SalesView() {
             setError('');
             setShowModal(true);
           }}
-          className="inline-flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition self-center sm:self-auto"
+          className="inline-flex cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition active:scale-[0.98] self-center lg:self-auto"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-4 w-4 shrink-0" />
           New Sale Order
         </button>
       </div>

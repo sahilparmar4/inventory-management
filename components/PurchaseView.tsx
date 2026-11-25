@@ -134,30 +134,30 @@ export default function PurchaseView({ preselectedItemId, onClearPreselect }: Pu
       cellClassName: 'space-x-2',
       render: (po) =>
         po.status === 'Pending' ? (
-          <>
+          <div className="inline-flex items-center justify-end gap-1.5">
             <button
               onClick={() => receivePurchaseOrder(po.id)}
-              className="inline-flex cursor-pointer items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-600 hover:bg-emerald-700 text-white transition"
+              className="inline-flex cursor-pointer items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-emerald-600 hover:bg-emerald-700 text-white transition whitespace-nowrap"
             >
-              <CheckCircle2 className="h-3.5 w-3.5" />
+              <CheckCircle2 className="h-4 w-4 shrink-0" />
               Mark Received
             </button>
             <button
               onClick={() => setPoToCancel(po)}
-              className="px-2.5 cursor-pointer py-1 rounded-md text-xs font-medium text-rose-600 hover:bg-rose-50"
+              className="px-3 py-1.5 cursor-pointer rounded-md text-xs font-medium text-rose-600 hover:bg-rose-50 whitespace-nowrap"
             >
               Cancel
             </button>
-          </>
+          </div>
         ) : (
           <span className="text-xs text-slate-400">—</span>
         ),
-    },
+      },
   ];
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         <SearchFilterBar
           search={search}
           onSearchChange={setSearch}
@@ -171,9 +171,9 @@ export default function PurchaseView({ preselectedItemId, onClearPreselect }: Pu
             setError('');
             setShowModal(true);
           }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition cursor-pointer self-center sm:self-auto"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition active:scale-[0.98] cursor-pointer self-center lg:self-auto"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-4 w-4 shrink-0" />
           New Purchase Order
         </button>
       </div>

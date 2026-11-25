@@ -70,3 +70,14 @@ body {
     animation: none;
   }
 }
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+button,
+select,
+a {
+  touch-action: manipulation;
+}

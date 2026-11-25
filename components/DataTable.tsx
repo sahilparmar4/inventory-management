@@ -93,12 +93,12 @@ export default function DataTable<T>({
                         <span>{col.header}</span>
                         {isActive ? (
                           sortDir === 'asc' ? (
-                            <ArrowUp className="h-3.5 w-3.5 text-indigo-600" />
+                            <ArrowUp className="h-4 w-4 shrink-0 text-indigo-600" />
                           ) : (
-                            <ArrowDown className="h-3.5 w-3.5 text-indigo-600" />
+                            <ArrowDown className="h-4 w-4 shrink-0 text-indigo-600" />
                           )
                         ) : (
-                          <ArrowUpDown className="h-3.5 w-3.5 text-slate-300" />
+                          <ArrowUpDown className="h-4 w-4 shrink-0 text-slate-300" />
                         )}
                       </button>
                     ) : (
