@@ -171,7 +171,7 @@ export default function PurchaseView({ preselectedItemId, onClearPreselect }: Pu
             setError('');
             setShowModal(true);
           }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition cursor-pointer self-center sm:self-auto"
         >
           <Plus className="h-4 w-4" />
           New Purchase Order

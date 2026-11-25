@@ -34,6 +34,39 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
   const pendingPoCount = purchaseOrders.filter((p) => p.status === 'Pending').length;
   const currentTitle = NAV_ITEMS.find((n) => n.href === pathname)?.label ?? 'Dashboard';
 
+  const renderLinks = (onNavigate?: () => void) =>
+    NAV_ITEMS.map((item) => {
+      const Icon = item.icon;
+      const active = pathname === item.href;
+      return (
+        <Link
+          key={item.href}
+          href={item.href}
+          onClick={onNavigate}
+          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition ${
+            active
+              ? 'bg-indigo-50 text-indigo-700'
+              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+          }`}
+        >
+          <span className="flex items-center gap-2.5">
+            <Icon className={`h-4 w-4 ${active ? 'text-indigo-600' : 'text-slate-400'}`} />
+            {item.label}
+          </span>
+          {item.href === '/stock' && lowStockCount > 0 && (
+            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-amber-100 text-amber-700">
+              {lowStockCount}
+            </span>
+          )}
+          {item.href === '/purchase' && pendingPoCount > 0 && (
+            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-sky-100 text-sky-700">
+              {pendingPoCount}
+            </span>
+          )}
+        </Link>
+      );
+    });
+
   return (
     <div className="min-h-screen flex bg-slate-50 text-slate-900">
       <aside className="hidden md:flex md:w-60 md:flex-col bg-white border-r border-slate-200 shrink-0">
@@ -46,72 +79,31 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             <div className="text-[11px] text-slate-400">Inventory OS</div>
           </div>
         </div>
-        <nav className="flex-1 p-3 space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            const active = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition ${
-                  active
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                }`}
-              >
-                <span className="flex items-center gap-2.5">
-                  <Icon className={`h-4 w-4 ${active ? 'text-indigo-600' : 'text-slate-400'}`} />
-                  {item.label}
-                </span>
-                {item.href === '/stock' && lowStockCount > 0 && (
-                  <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-amber-100 text-amber-700">
-                    {lowStockCount}
-                  </span>
-                )}
-                {item.href === '/purchase' && pendingPoCount > 0 && (
-                  <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-sky-100 text-sky-700">
-                    {pendingPoCount}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
+        <nav className="flex-1 p-3 space-y-1">{renderLinks()}</nav>
         <div className="p-4 border-t border-slate-100 text-xs text-slate-400">
           StockFlow &copy; 2026. All rights reserved.
         </div>
       </aside>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex">
-          <div className="fixed inset-0 bg-slate-900/40" onClick={() => setMobileOpen(false)} />
-          <aside className="relative w-64 bg-white h-full shadow-xl flex flex-col">
+        <div className="fixed inset-0 z-[60] md:hidden flex">
+          <div
+            className="fixed inset-0 bg-slate-900/40"
+            onClick={() => setMobileOpen(false)}
+          />
+          <aside className="relative z-10 w-64 bg-white h-full shadow-xl flex flex-col">
             <div className="h-16 px-5 flex items-center justify-between border-b border-slate-100">
               <span className="font-bold text-slate-900">StockFlow</span>
-              <button onClick={() => setMobileOpen(false)}>
-                <X className="h-5 w-5 text-slate-500" />
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close navigation"
+                className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="p-3 space-y-1">
-              {NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const active = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium ${
-                      active ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600'
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </nav>
+            <nav className="p-3 space-y-1">{renderLinks(() => setMobileOpen(false))}</nav>
           </aside>
         </div>
       )}
@@ -120,8 +112,10 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-3">
             <button
+              type="button"
               onClick={() => setMobileOpen(true)}
-              className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+              aria-label="Open navigation"
+              className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 cursor-pointer touch-manipulation"
             >
               <Menu className="h-5 w-5" />
             </button>

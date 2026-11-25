@@ -205,7 +205,7 @@ export default function StockView() {
   return (
     <div className="space-y-5">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
           <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-1">
             <button
               onClick={() => setActiveSubTab('items')}
@@ -226,7 +226,7 @@ export default function StockView() {
             </button>
           </div>
 
-          <div className="relative min-w-[220px]">
+          <div className="relative w-full sm:w-auto sm:min-w-[220px]">
             <Search className="h-4 w-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
@@ -238,7 +238,7 @@ export default function StockView() {
           </div>
 
           {activeSubTab === 'items' && (
-            <>
+            <div className="flex items-center justify-center gap-2">
               <div className="relative">
                 <select
                   value={categoryFilter}
@@ -266,13 +266,13 @@ export default function StockView() {
                 </select>
                 <ChevronDown className="h-3.5 w-3.5 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
               </div>
-            </>
+            </div>
           )}
         </div>
 
         <button
           onClick={() => setShowAddModal(true)}
-          className="inline-flex cursor-pointer items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition self-start lg:self-auto"
+          className="inline-flex cursor-pointer items-center justify-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm transition self-center lg:self-auto"
         >
           <Plus className="h-4 w-4" />
           Add Stock Item

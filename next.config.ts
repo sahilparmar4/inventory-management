@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  allowedDevOrigins: ["*.*.*.*"],
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
