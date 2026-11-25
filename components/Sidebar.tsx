@@ -43,7 +43,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
           key={item.href}
           href={item.href}
           onClick={onNavigate}
-          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition ${
+          className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition active:scale-[0.98] ${
             active
               ? 'bg-indigo-50 text-indigo-700'
               : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
@@ -86,12 +86,12 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       </aside>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-[60] md:hidden flex">
+        <div className="fixed inset-0 z-50 md:hidden flex">
           <div
-            className="fixed inset-0 bg-slate-900/40"
+            className="fixed inset-0 bg-slate-900/40 animate-backdrop-in"
             onClick={() => setMobileOpen(false)}
           />
-          <aside className="relative z-10 w-64 bg-white h-full shadow-xl flex flex-col">
+          <aside className="relative z-10 w-64 bg-white h-full shadow-xl flex flex-col animate-drawer-in">
             <div className="h-16 px-5 flex items-center justify-between border-b border-slate-100">
               <span className="font-bold text-slate-900">StockFlow</span>
               <button
@@ -109,13 +109,13 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       )}
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
+        <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-label="Open navigation"
-              className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 cursor-pointer touch-manipulation"
+              className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 cursor-pointer touch-manipulation active:scale-95 transition"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -123,13 +123,15 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-medium">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Live Sync Enabled
             </span>
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6 max-w-7xl w-full mx-auto">{children}</main>
+        <main key={pathname} className="flex-1 p-4 sm:p-6 max-w-7xl w-full mx-auto animate-page-in">
+          {children}
+        </main>
       </div>
     </div>
   );

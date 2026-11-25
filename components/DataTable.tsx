@@ -111,7 +111,7 @@ export default function DataTable<T>({
           </thead>
           <tbody className="divide-y divide-slate-100 text-sm">
             {sortedData.map((row) => (
-              <tr key={keyExtractor(row)} className="hover:bg-slate-50/70">
+              <tr key={keyExtractor(row)} className="hover:bg-slate-50/70 transition-colors duration-150">
                 {columns.map((col) => (
                   <td
                     key={col.key}

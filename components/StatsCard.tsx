@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 interface StatCardProps {
@@ -13,7 +14,7 @@ interface StatCardProps {
   onClick?: () => void;
 }
 
-export default function StatsCard({
+export default function StatCard({
   title,
   value,
   subtitle,
@@ -23,8 +24,8 @@ export default function StatsCard({
   hoverBorderClassName = 'hover:border-indigo-300',
   onClick,
 }: StatCardProps) {
-  const baseClass = `text-left bg-white border border-slate-200 rounded-xl p-5 shadow-sm transition ${
-    `${hoverBorderClassName} cursor-pointer`
+  const baseClass = `text-left bg-white border border-slate-200 rounded-xl p-5 shadow-sm transition-all duration-200 ${
+    onClick ? `${hoverBorderClassName} hover:-translate-y-0.5 hover:shadow-md active:scale-[0.99] cursor-pointer` : ''
   }`;
 
   const content = (
